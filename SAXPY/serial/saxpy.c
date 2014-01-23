@@ -6,9 +6,9 @@
 int main()
 {
   const int N = 1000;
-  const float a = .5f;
-  float sum = 0.0f;
-  float z[N], x[N], y[N];
+  const double a = .5f;
+  double sum = 0.0f;
+  double z[N], x[N], y[N];
   int i;
 
   for(i = 0; i < N; i++)

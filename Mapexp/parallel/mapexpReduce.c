@@ -8,10 +8,10 @@
 int main()
 {
   const int N = 1000000;
-  float sum = 0.0f;
-  float *x, *z;	// range and domain
-  x = (float*) malloc(N*sizeof(float));
-  z = (float*) malloc(N*sizeof(float));
+  double sum = 0.0f;
+  double *x, *z;	// range and domain
+  x = (double*) malloc(N*sizeof(double));
+  z = (double*) malloc(N*sizeof(double));
 
   int i;
 

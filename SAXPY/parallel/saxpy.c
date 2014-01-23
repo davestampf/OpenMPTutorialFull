@@ -6,11 +6,12 @@
 int main()
 {
   const int N = 1000;
-  const float a = .5f;
-  float sum = 0.0f;
-  float z[N], x[N], y[N];
+  const double a = .5f;
+  double sum = 0.0f;
+  double z[N], x[N], y[N];
   int i;
 
+#pragma omp parallel for
   for(i = 0; i < N; i++)
     {
       x[i] = (i+1)*.15;
@@ -23,6 +24,7 @@ int main()
       z[i] = a*x[i] + y[i];
     }
 
+#pragma omp parallel for reduction(+:sum)
   for(i = 0; i < N; i++)
     {
       sum += z[i];
