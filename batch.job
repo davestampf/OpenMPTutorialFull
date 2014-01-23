@@ -1,0 +1,49 @@
+#PBS -m e
+##PBS -M dimperio@bnl.gov
+#PBS -S /bin/bash
+##PBS -l feature=nvidia
+##PBS -l feature=intel
+##PBS -l nodes=1:ppn=16
+##PBS -l nodes=1
+#PBS -l walltime=00:05:00
+#PBS -j oe
+#PBS -N openmp
+#PBS -o $PBS_JOBID.out
+ 
+## We requested nodes and procesors per node.  ${PBS_NODEFILE} lists
+## these node.  Count the number of processors selected.
+NODECOUNT=`sort -u ${PBS_NODEFILE} | wc -l`
+PROCCOUNT=`sort ${PBS_NODEFILE} | wc -w`
+ 
+## Set and change to WORK directory based on Job ID, prevents duplication
+## of files.  You may also use PBS_O_WORKDIR, which is set by PBS to the
+## directory where you executed qsub.
+WORK=${PBS_O_WORKDIR}
+ 
+echo "Number of nodes is: ${NODECOUNT}"
+echo "Number of processors is: ${PROCCOUNT}"
+echo "The hostnames of the nodes: "
+cat ${PBS_NODEFILE} | head -n 1
+echo ""
+
+
+#######
+#######  YOUR SCRIPTING BELOW HERE
+#######
+
+EXE=${WORK}/MonteCarlo/parallel/c/montecarlo
+
+echo "The executable is: ${EXE}"
+echo ""
+
+## Run executable commands.
+export OMP_NUM_THREADS=2
+time -p ${EXE}
+
+
+#######
+#######  YOUR SCRIPTING ABOVE HERE
+#######
+ 
+ 
+# End-of-job cleanup goes here, if necessary
